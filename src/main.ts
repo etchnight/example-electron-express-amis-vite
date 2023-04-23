@@ -4,7 +4,8 @@ import { spawn } from "child_process";
 import path from "path";
 import fetch from "node-fetch";
 import { name } from "../package.json";
-
+//https://www.electronforge.io/import-existing-project
+//if (require('electron-squirrel-startup')) app.quit();
 const appName = app.getPath("exe");
 const expressAppUrl = "http://127.0.0.1:3000";
 let mainWindow: BrowserWindow | null;
@@ -52,7 +53,7 @@ function createWindow() {
 		autoHideMenuBar: true,
 		width: 640,
 		height: 480,
-		icon: path.join(__dirname, path.join("..", "favicon.ico")),
+		//icon: path.join(__dirname, path.join("..", "favicon.ico")),
 		webPreferences: {
 			preload: path.join(__dirname, "preload.js"),
 		},
@@ -72,8 +73,8 @@ function createWindow() {
 	ipcMain.handle("get-express-app-url", () => {
 		return expressAppUrl;
 	});
-
-	//mainWindow.webContents.openDevTools();
+	//!开发者工具 
+	mainWindow.webContents.openDevTools();
 	mainWindow.loadURL(`file://${__dirname}/../index.html`);
 }
 

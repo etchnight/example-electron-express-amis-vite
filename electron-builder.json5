@@ -1,0 +1,35 @@
+/**
+ * @see https://www.electron.build/configuration/configuration
+ */
+{
+  $schema: "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  appId: "YourAppID",
+  asar: true,
+  directories: {
+    output: "./release/${version}",
+  },
+  extraMetadata: {
+    main: "./dist/src/main.js", // 喏，把这个改成你的main路径
+  },
+  files: ["dist"],
+  mac: {
+    artifactName: "${productName}_${version}.${ext}",
+    target: ["dmg"],
+  },
+  win: {
+    target: [
+      {
+        target: "nsis",
+        arch: ["x64"],
+      },
+    ],
+    artifactName: "${productName}_${version}.${ext}",
+    requestedExecutionLevel:"highestAvailable"
+  },
+  nsis: {
+    oneClick: false,
+    perMachine: false,
+    allowToChangeInstallationDirectory: true,
+    deleteAppDataOnUninstall: false,
+  },
+}

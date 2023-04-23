@@ -1,40 +1,52 @@
 {
-    "name": "electron-with-express",
-    "description": "Demonstrates spawning Express from Electron and using it to serve content",
-    "version": "1.0.7",
-    "main": "./dist/src/main.js",
-    "icon": "./dist/favicon.ico",
-    "expressPort": 3000,
-    "basePath": "./dist",
-    "authors": [
-        "Frank Hale <frankhale@gmail.com>"
-    ],
-    "license": "MIT",
-    "private": true,
-    "scripts": {
-        "build": "tsc",
-        "start": "tsc && electron .",
-        "pack": "tsc && cd .. && electron-packager ./electron-with-express --icon=./electron-with-express/dist/favicon.ico --ignore=\"^(?!(.*node_modules|.*dist))(.*src.*|.*screenshots.*|.*tsconfig.*|.*README.*|.*git.*)\" --asar.unpack=*.{node,dll,db} --overwrite"
-    },
-    "dependencies": {
-        "body-parser": "^1.20.1",
-        "cookie-parser": "^1.4.6",
-        "debug": "^4.3.4",
-        "ejs": "^3.1.8",
-        "express": "^4.18.2",
-        "http-errors": "^2.0.0",
-        "morgan": "^1.10.0",
-        "node-fetch": "^2.6.9",
-        "serve-favicon": "^2.5.0"
-    },
-    "devDependencies": {
-        "@types/cookie-parser": "^1.4.3",
-        "@types/express": "^4.17.17",
-        "@types/http-errors": "^2.0.1",
-        "@types/morgan": "^1.9.4",
-        "@types/node": "^18.13.0",
-        "@types/node-fetch": "^2.6.2",
-        "electron": "^23.1.0",
-        "typescript": "^4.9.5"
-    }
+  "name": "electron-express-amis-vite",
+  "description": "Electron + Express + 前端使用 Vite + 前端使用 Amis(Vue、React)同理 + Typescript",
+  "version": "1.0.0",
+  "author": {
+    "name": "dualwind"
+  },
+  "main": "dist/src/main.js",
+  "icon": "",
+  "expressPort": 3000,
+  "basePath": "./dist",
+  "authors": [
+    "dualwind"
+  ],
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "vitebuild": "cd ./web && pnpm build & cd ../",
+    "express_build": "tsc && pnpm vitebuild",
+    "express": "pnpm express_build && node dist/src/express-app.js",
+    "build": "pnpm express_build && copy index.html dist",
+    "start": "pnpm build && electron .",
+    "pack-win32": "pnpm build && electron-builder --win --ia32",
+    "pack-win": "pnpm build && electron-builder --win --x64",
+    "pack-mac": "pnpm build && electron-builder --mac",
+    "pack-linux": "pnpm build && electron-builder --linux"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "debug": "^4.3.4",
+    "ejs": "^3.1.9",
+    "electron-squirrel-startup": "^1.0.0",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.9",
+    "serve-favicon": "^2.5.0",
+    "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.17",
+    "@types/http-errors": "^2.0.1",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^18.16.0",
+    "@types/node-fetch": "^2.6.3",
+    "electron": "23.2.4",
+    "electron-builder": "^23.6.0",
+    "typescript": "^4.9.5"
+  }
 }
